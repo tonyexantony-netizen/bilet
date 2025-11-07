@@ -34,11 +34,27 @@
     font-weight: 600;
     border-radius: 0 0 12px 12px;
   }
-  .sbp-logo {
+ .sbp-logo {
     margin-top: 22px;
-    width: 52px;
+    display: flex;
+    justify-content: center;  /* центрирует весь блок */
+    align-items: center;       /* выравнивает по вертикали */
+    text-align: center;
+    gap: 8px;                  /* расстояние между картинкой и текстом */
+}
+
+.sbp-logo img {
+    width: 142px;               /* можно менять размер логотипа */
     height: auto;
-  }
+    display: block;
+}
+
+.sbp-logo span {
+    font-size: 32px;
+    font-weight: 700;
+    color: #2e215f;
+    line-height: 1;
+}
   .pay-status {
     font-size: 18px;
     margin-top: 10px;
@@ -170,6 +186,7 @@
 </script>
 </body>
 </html>
+
 
 
 
