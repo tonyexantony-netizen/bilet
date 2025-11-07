@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Билет СБП</title>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="mobile-web-app-capable" content="yes">
+<style>
+  html, body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    background-color: #f7f3eb;
+    font-family: "SF Pro Display", "Roboto", "Arial", sans-serif;
+    color: #1f144f;
+    text-align: center;
+  }
+  .wrapper {
+    width: 100%;
+    margin: 0;
+    padding: 0;
+  }
+  .header {
+    background-color: #2e215f;
+    color: #fff;
+    padding: 15px 0;
+    font-size: 20px;
+    font-weight: 600;
+    border-radius: 0 0 12px 12px;
+  }
+  .sbp-logo {
+    margin-top: 22px;
+    font-size: 28px;
+    font-weight: 700;
+    color: #2e215f;
+  }
+  .pay-status {
+    font-size: 18px;
+    margin-top: 10px;
+  }
+  .ticket-info {
+    font-size: 20px;
+    margin: 25px 0;
+  }
+  .ticket-info span {
+    display: block;
+    margin: 6px 0;
+  }
+  .price {
+    font-size: 32px;
+    font-weight: 700;
+  }
+  .timer-label {
+    margin-top: 20px;
+    font-size: 15px;
+  }
+  .timer {
+    font-size: 34px;
+    font-weight: 700;
+    margin-bottom: 20px;
+  }
+  .qr {
+    display: flex;
+    justify-content: center;
+  }
+  .qr img {
+    width: 230px;
+    height: 230px;
+    image-rendering: pixelated;
+  }
+  .bottom {
+    margin-top: 25px;
+    font-size: 14px;
+  }
+  .button {
+    background-color: #7ccd3f;
+    color: #fff;
+    font-weight: 600;
+    padding: 14px 24px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    margin-top: 15px;
+    font-size: 16px;
+  }
+  .button:hover {
+    background-color: #6ab236;
+  }
+
+  [contenteditable="true"]:focus {
+    outline: none;
+    background-color: rgba(255,255,0,0.15);
+    border-radius: 6px;
+    padding: 2px 6px;
+  }
+
+  body {
+    -webkit-tap-highlight-color: transparent;
+  }
+</style>
+</head>
+<body>
+  <div class="wrapper">
+    <div class="header">Уведомление об оплате</div>
+    <div class="sbp-logo">СБП</div>
+    <div class="pay-status">Ваш проезд успешно оплачен!</div>
+    
+    <div class="ticket-info">
+      <span id="tram" contenteditable="true">Трамвай: №3</span>
+      <span class="price">33 ₽</span>
+      <span id="date" contenteditable="true">07.11.2025 09:41</span>
+      <span id="ts" contenteditable="true">Т/С: 830</span>
+    </div>
+
+    <div class="timer-label">С момента оплаты прошло:</div>
+    <div id="timer" class="timer">00:40</div>
+
+    <div class="qr">
+      <!-- Локальный QR-код -->
+      <img src="QR.png" alt="QR">
+    </div>
+
+    <div class="bottom">
+      <p>Предъявите контролеру QR-код.<br>Чтобы сохранить реквизиты билета, нажмите кнопку «Скачать».</p>
+      <button class="button" onclick="resetTimer()">Сбросить таймер</button>
+    </div>
+  </div>
+
+<script>
+  // --- Таймер ---
+  let seconds = 40;
+  let timerInterval;
+
+  function startTimer() {
+    timerInterval = setInterval(() => {
+      seconds++;
+      const min = String(Math.floor(seconds / 60)).padStart(2, '0');
+      const sec = String(seconds % 60).padStart(2, '0');
+      document.getElementById("timer").textContent = `${min}:${sec}`;
+    }, 1000);
+  }
+
+  function resetTimer() {
+    clearInterval(timerInterval);
+    seconds = 40;
+    document.getElementById("timer").textContent = "00:40";
+    startTimer();
+  }
+
+  // --- Сохраняем редактируемые поля ---
+  const editableElements = document.querySelectorAll('[contenteditable="true"]');
+  editableElements.forEach(el => {
+    const id = el.id;
+    const saved = localStorage.getItem(id);
+    if (saved) el.textContent = saved;
+    el.addEventListener('input', () => {
+      localStorage.setItem(id, el.textContent);
+    });
+  });
+
+  // Запуск таймера
+  resetTimer();
+</script>
+</body>
+</html>
