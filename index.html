@@ -42,6 +42,19 @@
     gap: 8px;                  /* расстояние между картинкой и текстом */
 }
 
+  .ticket-series {
+  margin-top: 18px;
+  font-size: 15px;
+  color: #1f144f;
+  text-align: center;
+  line-height: 1.6;
+}
+
+.ticket-series span {
+  font-weight: 700;
+  letter-spacing: 0.3px;
+}
+
 .sbp-logo img {
     width: 142px;               /* можно менять размер логотипа */
     height: auto;
@@ -142,6 +155,11 @@
       <img src="QR.png" alt="QR">
     </div>
 
+    <div class="ticket-series">
+  <p>Серия билета: <span id="ticket-series" contenteditable="true">QR200938000975</span></p>
+  <p>Номер билета: <span id="ticket-number" contenteditable="true">20251107044133096</span></p>
+</div>
+
     <div class="bottom">
       <p>Предъявите контролеру QR-код.<br>Чтобы сохранить реквизиты билета, нажмите кнопку «Скачать билет».</p>
       <button class="button" onclick="resetTimer()">Скачать билет</button>
@@ -185,6 +203,7 @@
 </script>
 </body>
 </html>
+
 
 
 
