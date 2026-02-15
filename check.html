@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Квитанция</title>
+
+<style>
+  body {
+    margin: 0;
+    background: #f3f3f3;
+    font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text",
+                 "Segoe UI", Roboto, Arial, sans-serif;
+    color: #111;
+  }
+
+  .logo {
+  display: flex;
+  justify-content: center;
+  padding: 18px 0 6px;
+}
+
+.logo img {
+  height: 32px;
+  width: auto;
+}
+
+.stamp {
+  display: flex;
+  justify-content: center;
+  padding: 10px 0 24px;
+}
+
+.stamp img {
+  width: 220px;
+  max-width: 80%;
+  opacity: 0.9;
+}
+  .screen {
+    max-width: 430px;
+    margin: 0 auto;
+    background: #fff;
+    min-height: 100vh;
+  }
+
+  .top {
+    padding: 18px 16px 6px;
+    font-size: 14px;
+    color: #8a8a8a;
+  }
+
+  .total {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    padding: 0 16px 10px;
+  }
+
+  .total span:first-child {
+    font-size: 28px;
+    font-weight: 600;
+  }
+
+  .total span:last-child {
+    font-size: 28px;
+    font-weight: 600;
+  }
+
+  .divider {
+    height: 2px;
+    background: #f2c200;
+    margin: 0 16px 12px;
+  }
+
+  .rows {
+    padding: 0 16px;
+  }
+
+  .row {
+    display: flex;
+    justify-content: space-between;
+    font-size: 15px;
+    margin: 10px 0;
+  }
+
+  .row span:first-child {
+    color: #7a7a7a;
+  }
+
+  .footer {
+    padding: 24px 16px;
+    font-size: 13px;
+    color: #8a8a8a;
+    line-height: 1.4;
+  }
+
+  /* редактируемая дата */
+  #date[contenteditable="true"]:focus {
+    outline: none;
+    background: rgba(255, 230, 0, 0.25);
+    border-radius: 6px;
+    padding: 2px 6px;
+  }
+
+  /* отключаем выделение всего остального */
+  * {
+    -webkit-tap-highlight-color: transparent;
+    user-select: none;
+  }
+
+  #date {
+    user-select: text;
+  }
+</style>
+</head>
+<body>
+
+<div class="screen">
+
+  <!-- ЛОГОТИП БАНКА -->
+<div class="logo">
+  <img src="logo.png" alt="Логотип банка">
+</div>
+
+  <!-- ДАТА / ВРЕМЯ -->
+  <div id="date" class="top" contenteditable="true">
+    15.02.2026 09:49
+  </div>
+
+  <!-- ИТОГО -->
+  <div class="total">
+    <span>Итого</span>
+    <span>42 ₽</span>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- ДАННЫЕ -->
+  <div class="rows">
+    <div class="row"><span>Покупка</span><span>По QR-коду</span></div>
+    <div class="row"><span>Статус</span><span>Успешно</span></div>
+    <div class="row"><span>Сумма</span><span>42 ₽</span></div>
+    <div class="row"><span>Магазин</span><span>bilet.nspk.ru</span></div>
+    <div class="row"><span>Счёт списания</span><span>**** 4358</span></div>
+    <div class="row"><span>Банк получателя</span><span>АО «ТБанк»</span></div>
+  </div>
+
+  <div class="footer">
+    Квитанция № 1-115-198-522-637<br>
+    По вопросам зачисления обращайтесь к получателю
+  </div>
+
+  <!-- ПЕЧАТЬ -->
+<div class="stamp">
+  <img src="stamp.png" alt="Печать банка">
+</div>
+
+</div>
+
+<script>
+  const dateEl = document.getElementById("date");
+
+  function getRealDateTime() {
+    const now = new Date();
+    const d = String(now.getDate()).padStart(2, "0");
+    const m = String(now.getMonth() + 1).padStart(2, "0");
+    const y = now.getFullYear();
+    const h = String(now.getHours()).padStart(2, "0");
+    const min = String(now.getMinutes()).padStart(2, "0");
+    return `${d}.${m}.${y} ${h}:${min}`;
+  }
+
+  const navType = performance.getEntriesByType("navigation")[0]?.type;
+
+  if (navType === "reload") {
+    const real = getRealDateTime();
+    dateEl.textContent = real;
+    localStorage.setItem("receiptDate", real);
+  } else {
+    const saved = localStorage.getItem("receiptDate");
+    if (saved) dateEl.textContent = saved;
+  }
+
+  dateEl.addEventListener("input", () => {
+    localStorage.setItem("receiptDate", dateEl.textContent);
+  });
+</script>
+
+</body>
+</html>
