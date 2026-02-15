@@ -205,6 +205,30 @@
   updateTimer();
   setInterval(updateTimer, 1000);
 
+  // --- ДАТА: ОБНОВЛЯЕТСЯ ТОЛЬКО ПРИ REFRESH ---
+const dateEl = document.getElementById("date");
+
+function getCurrentDateTime() {
+  const now = new Date();
+
+  const d = String(now.getDate()).padStart(2, "0");
+  const m = String(now.getMonth() + 1).padStart(2, "0");
+  const y = now.getFullYear();
+
+  const h = String(now.getHours()).padStart(2, "0");
+  const min = String(now.getMinutes()).padStart(2, "0");
+
+  return `${d}.${m}.${y} ${h}:${min}`;
+}
+
+const navType = performance.getEntriesByType("navigation")[0]?.type;
+
+if (navType === "reload") {
+  const realDate = getCurrentDateTime();
+  dateEl.textContent = realDate;
+  localStorage.setItem("date", realDate);
+}
+
   // --- СОХРАНЕНИЕ РЕДАКТИРУЕМЫХ ПОЛЕЙ ---
   const editableElements = document.querySelectorAll('[contenteditable="true"]');
   editableElements.forEach(el => {
@@ -219,6 +243,7 @@
 </script>
 </body>
 </html>
+
 
 
 
