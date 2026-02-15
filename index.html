@@ -171,42 +171,55 @@
   </div>
 
 <script>
-  // --- Таймер ---
-  let seconds = 40;
-  let timerInterval;
+  // --- ТАЙМЕР ---
+  const timerEl = document.getElementById("timer");
+  let startTimestamp = localStorage.getItem("timerStart");
 
-  function startTimer() {
-    timerInterval = setInterval(() => {
-      seconds++;
-      const min = String(Math.floor(seconds / 60)).padStart(2, '0');
-      const sec = String(seconds % 60).padStart(2, '0');
-      document.getElementById("timer").textContent = `${min}:${sec}`;
-    }, 1000);
+  function initTimer() {
+    const now = new Date();
+    const secondsToNextMinute = 60 - now.getSeconds();
+    startTimestamp = Date.now() - secondsToNextMinute * 1000;
+    localStorage.setItem("timerStart", startTimestamp);
+  }
+
+  if (!startTimestamp) {
+    initTimer();
+  }
+
+  startTimestamp = Number(startTimestamp);
+
+  function updateTimer() {
+    const elapsedSeconds = Math.floor((Date.now() - startTimestamp) / 1000);
+
+    const min = String(Math.floor(elapsedSeconds / 60)).padStart(2, "0");
+    const sec = String(elapsedSeconds % 60).padStart(2, "0");
+
+    timerEl.textContent = `${min}:${sec}`;
   }
 
   function resetTimer() {
-    clearInterval(timerInterval);
-    seconds = 40;
-    document.getElementById("timer").textContent = "00:40";
-    startTimer();
+    initTimer();
+    updateTimer();
   }
 
-  // --- Сохраняем редактируемые поля ---
+  updateTimer();
+  setInterval(updateTimer, 1000);
+
+  // --- СОХРАНЕНИЕ РЕДАКТИРУЕМЫХ ПОЛЕЙ ---
   const editableElements = document.querySelectorAll('[contenteditable="true"]');
   editableElements.forEach(el => {
     const id = el.id;
     const saved = localStorage.getItem(id);
     if (saved) el.textContent = saved;
+
     el.addEventListener('input', () => {
       localStorage.setItem(id, el.textContent);
     });
   });
-
-  // Запуск таймера
-  resetTimer();
 </script>
 </body>
 </html>
+
 
 
 
