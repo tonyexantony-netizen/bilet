@@ -1,267 +1,341 @@
-<!DOCTYPE html>
-<html lang="ru">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Билет СБП</title>
-<meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<meta name="mobile-web-app-capable" content="yes">
-<style>
-  html, body {
-    margin: 0;
-    padding: 0;
-    height: 100%;
-    background-color: #f7f3eb;
-    font-family: "SF Pro Display", "Roboto", "Arial", sans-serif;
-    color: #1f144f;
-    text-align: center;
-  }
+<!DOCTYPE html> 
+<html lang="ru"> 
+<head> 
+<meta charset="UTF-8"> 
+<meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+<title>Билет СБП</title> 
+<meta name="apple-mobile-web-app-capable" content="yes"> 
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"> 
+<meta name="mobile-web-app-capable" content="yes"> 
 
-  #ts {
-    color: #D3D3D3; /* или #888, #999, выбери нужный оттенок серого */
-}
-  .wrapper {
-    width: 100%;
-    margin: 0;
-    padding: 0;
-  }
-  .header {
-    background-color: #2e215f;
-    color: #fff;
-    padding: 15px 0;
-    font-size: 20px;
-    font-weight: 600;
-  }
- .sbp-logo {
-    margin-top: 22px;
-    display: flex;
-    justify-content: center;  /* центрирует весь блок */
-    align-items: center;       /* выравнивает по вертикали */
-    text-align: center;
-    gap: 8px;                  /* расстояние между картинкой и текстом */
-}
+<style> 
+  html, body { 
+    margin: 0; 
+    padding: 0; 
+    height: 100%; 
+    background-color: #f7f3eb; 
+    font-family: "SF Pro Display", "Roboto", "Arial", sans-serif; 
+    color: #1f144f; 
+    text-align: center; 
+  } 
+ 
+  #ts { 
+    color: #D3D3D3;
+  } 
 
-  .ticket-series {
-  margin-top: 14px;
-  font-size: 19px;
-  color: #1f144f;
-  text-align: center;
-  line-height: 1.2;
-}
+  .wrapper { 
+    width: 100%; 
+    margin: 0; 
+    padding: 0; 
+  } 
 
-.ticket-series span {
-  font-weight: 700;
-  letter-spacing: 0.3px;
-}
+  .header { 
+    background-color: #2e215f; 
+    color: #fff; 
+    padding: 15px 0; 
+    font-size: 20px; 
+    font-weight: 600; 
+  } 
 
-  .ticket-series p {
-  margin: 0;                  /* убираем стандартные отступы между строками */
-}
+  .sbp-logo { 
+    margin-top: 22px; 
+    display: flex; 
+    justify-content: center; 
+    align-items: center; 
+    text-align: center; 
+    gap: 8px; 
+  } 
+ 
+  .ticket-series { 
+    margin-top: 14px; 
+    font-size: 19px; 
+    color: #1f144f; 
+    text-align: center; 
+    line-height: 1.2; 
+  } 
+ 
+  .ticket-series span { 
+    font-weight: 700; 
+    letter-spacing: 0.3px; 
+  } 
+ 
+  .ticket-series p { 
+    margin: 0; 
+  } 
+ 
+  .sbp-logo img { 
+    width: 142px; 
+    height: auto; 
+    display: block; 
+  } 
+ 
+  .sbp-logo span { 
+    font-size: 32px; 
+    font-weight: 700; 
+    color: #2e215f; 
+    line-height: 1; 
+  } 
 
-.sbp-logo img {
-    width: 142px;               /* можно менять размер логотипа */
-    height: auto;
-    display: block;
-}
+  .pay-status { 
+    font-size: 18px; 
+    margin-top: 10px; 
+  } 
 
-.sbp-logo span {
-    font-size: 32px;
-    font-weight: 700;
-    color: #2e215f;
-    line-height: 1;
-}
-  .pay-status {
-    font-size: 18px;
-    margin-top: 10px;
-  }
-  .ticket-info {
-    font-size: 20px;
-    margin: 25px 0;
-  }
-  .ticket-info span {
-    display: block;
-    margin: 6px 0;
-  }
-  .price {
-    font-size: 32px;
-    font-weight: 700;
-  }
-  .timer-label {
-    margin-top: 20px;
-    font-size: 15px;
-  }
-  .timer {
-    font-size: 34px;
-    font-weight: 700;
-    margin-bottom: 20px;
-  }
-  .qr {
-    display: flex;
-    justify-content: center;
-  }
-  .qr img {
-    width: 350px;
-    height: 350px;
-    image-rendering: pixelated;
-  }
-  .bottom {
-    margin-top: 25px;
-    font-size: 14px;
-  }
-  .button {
-    background-color: #7ccd3f;
-    color: #fff;
-    font-weight: 600;
-    padding: 14px 24px;
-    border: none;
-    border-radius: 8px;
-    cursor: pointer;
-    margin-top: 15px;
-    font-size: 16px;
-  }
-  .button:hover {
-    background-color: #6ab236;
-  }
+  .ticket-info { 
+    font-size: 20px; 
+    margin: 25px 0; 
+  } 
 
-  [contenteditable="true"]:focus {
-    outline: none;
-    background-color: rgba(255,255,0,0.15);
-    border-radius: 6px;
-    padding: 2px 6px;
-  }
+  .ticket-info span { 
+    display: block; 
+    margin: 6px 0; 
+  } 
 
-  body {
-    -webkit-tap-highlight-color: transparent;
-  }
-</style>
-</head>
-<body>
-  <div class="wrapper">
-    <div class="header">Уведомление об оплате</div>
-    <div class="sbp-logo">
-      <img src="SBP.png" alt="СБП логотип">
+  .price { 
+    font-size: 32px; 
+    font-weight: 700; 
+  } 
+
+  .timer-label { 
+    margin-top: 20px; 
+    font-size: 15px; 
+  } 
+
+  .timer { 
+    font-size: 34px; 
+    font-weight: 700; 
+    margin-bottom: 20px; 
+  } 
+
+  .qr { 
+    display: flex; 
+    justify-content: center; 
+  } 
+
+  .qr img { 
+    width: 350px; 
+    height: 350px; 
+    image-rendering: pixelated; 
+  } 
+
+  .bottom { 
+    margin-top: 25px; 
+    font-size: 14px; 
+  } 
+
+  .button { 
+    background-color: #7ccd3f; 
+    color: #fff; 
+    font-weight: 600; 
+    padding: 14px 24px; 
+    border: none; 
+    border-radius: 8px; 
+    cursor: pointer; 
+    margin-top: 15px; 
+    font-size: 16px; 
+  } 
+
+  .button:hover { 
+    background-color: #6ab236; 
+  } 
+ 
+  [contenteditable="true"]:focus { 
+    outline: none; 
+    background-color: rgba(255,255,0,0.15); 
+    border-radius: 6px; 
+    padding: 2px 6px; 
+  } 
+ 
+  body { 
+    -webkit-tap-highlight-color: transparent; 
+  } 
+</style> 
+</head> 
+
+<body> 
+
+  <div class="wrapper"> 
+
+    <div class="header">
+      Уведомление об оплате
     </div>
-    <div class="pay-status">Ваш проезд успешно оплачен!</div>
-    
-    <div class="ticket-info">
-      <span id="tram" contenteditable="true"><b>Трамвай: №3</b></span>
-      <span class="price">42 ₽</span>
-      <span id="date" contenteditable="true">07.11.2025 09:41</span>
-      <span id="ts" contenteditable="true">Т/С: 830</span>
+
+    <div class="sbp-logo"> 
+      <img src="SBP.png" alt="СБП логотип"> 
     </div>
 
-    <div class="timer-label">С момента оплаты прошло:</div>
-    <div id="timer" class="timer">00:40</div>
+    <div class="pay-status">
+      Ваш проезд успешно оплачен!
+    </div> 
+     
+    <div class="ticket-info"> 
 
-    <div class="qr">
-      <!-- Локальный QR-код -->
-      <img src="QR.png" alt="QR">
-    </div>
+      <!-- ТРАМВАЙ МОЖНО РЕДАКТИРОВАТЬ -->
+      <span id="tram" contenteditable="true"><b>Трамвай: №3</b></span> 
 
-    <div class="ticket-series">
-  <p>Серия билета: <span id="ticket-series" contenteditable="true">QR200938000975</span></p>
-  <p>Номер билета: <span id="ticket-number" contenteditable="true">20251107044133096</span></p>
-</div>
+      <span class="price">
+        42 ₽
+      </span> 
 
-    <div class="bottom">
-      <p>Предъявите контролеру QR-код.<br>Чтобы сохранить реквизиты билета, нажмите кнопку <a href="check.html" class="text-link">Скачать билет</a>.</p>
-      <button class="button" onclick="resetTimer()">Скачать билет</button>
-    </div>
-  </div>
+      <span id="date" contenteditable="true">
+        07.11.2025 09:41
+      </span> 
 
-<script>
-  // --- ТАЙМЕР ---
-  const timerEl = document.getElementById("timer");
-  let startTimestamp = localStorage.getItem("timerStart");
+      <span id="ts" contenteditable="true">
+        Т/С: 830
+      </span> 
 
-  function initTimer() {
-    const now = new Date();
-    const secondsToNextMinute = 60 - now.getSeconds();
-    startTimestamp = Date.now() - secondsToNextMinute * 1000;
-    localStorage.setItem("timerStart", startTimestamp);
-  }
+    </div> 
+ 
+    <div class="timer-label">
+      С момента оплаты прошло:
+    </div> 
 
-  if (!startTimestamp) {
-    initTimer();
-  }
+    <div id="timer" class="timer">
+      00:40
+    </div> 
+ 
+    <div class="qr"> 
+      <img src="QR.png" alt="QR"> 
+    </div> 
+ 
+    <div class="ticket-series"> 
+      <p>
+        Серия билета:
+        <span id="ticket-series" contenteditable="true">
+          QR200938000975
+        </span>
+      </p>
 
-  startTimestamp = Number(startTimestamp);
+      <p>
+        Номер билета:
+        <span id="ticket-number" contenteditable="true">
+          20251107044133096
+        </span>
+      </p>
+    </div> 
+ 
+    <div class="bottom"> 
 
-  function updateTimer() {
-    const elapsedSeconds = Math.floor((Date.now() - startTimestamp) / 1000);
+      <p>
+        Предъявите контролеру QR-код.<br>
+        Чтобы сохранить реквизиты билета, нажмите кнопку
+        <a href="check.html" class="text-link">Скачать билет</a>.
+      </p>
 
-    const min = String(Math.floor(elapsedSeconds / 60)).padStart(2, "0");
-    const sec = String(elapsedSeconds % 60).padStart(2, "0");
+      <button class="button" onclick="resetTimer()">
+        Скачать билет
+      </button>
 
-    timerEl.textContent = `${min}:${sec}`;
-  }
+    </div> 
 
-  function resetTimer() {
-    initTimer();
-    updateTimer();
-  }
+  </div> 
+ 
+<script> 
 
-  updateTimer();
-  setInterval(updateTimer, 1000);
+  // --- ТАЙМЕР --- 
 
-  // --- ДАТА: ОБНОВЛЯЕТСЯ ТОЛЬКО ПРИ REFRESH ---
-const dateEl = document.getElementById("date");
+  const timerEl = document.getElementById("timer"); 
 
-function getCurrentDateTime() {
-  const now = new Date();
+  let startTimestamp = localStorage.getItem("timerStart"); 
 
-  const d = String(now.getDate()).padStart(2, "0");
-  const m = String(now.getMonth() + 1).padStart(2, "0");
-  const y = now.getFullYear();
+  function initTimer() { 
+    const now = new Date(); 
+    const secondsToNextMinute = 60 - now.getSeconds(); 
 
-  const h = String(now.getHours()).padStart(2, "0");
-  const min = String(now.getMinutes()).padStart(2, "0");
+    startTimestamp = Date.now() - secondsToNextMinute * 1000; 
 
-  return `${d}.${m}.${y} ${h}:${min}`;
-}
+    localStorage.setItem("timerStart", startTimestamp); 
+  } 
 
-const navType = performance.getEntriesByType("navigation")[0]?.type;
+  if (!startTimestamp) { 
+    initTimer(); 
+  } 
 
-if (navType === "reload") {
-  const realDate = getCurrentDateTime();
-  dateEl.textContent = realDate;
-  localStorage.setItem("date", realDate);
-}
+  startTimestamp = Number(startTimestamp); 
 
-  // --- СОХРАНЕНИЕ РЕДАКТИРУЕМЫХ ПОЛЕЙ ---
-  const editableElements = document.querySelectorAll('[contenteditable="true"]');
-  editableElements.forEach(el => {
-    const id = el.id;
-    const saved = localStorage.getItem(id);
-    if (saved) el.textContent = saved;
+  function updateTimer() { 
 
-    el.addEventListener('input', () => {
-      localStorage.setItem(id, el.textContent);
-    });
-  });
-</script>
-</body>
+    const elapsedSeconds = Math.floor(
+      (Date.now() - startTimestamp) / 1000
+    ); 
+
+    const min = String(
+      Math.floor(elapsedSeconds / 60)
+    ).padStart(2, "0"); 
+
+    const sec = String(
+      elapsedSeconds % 60
+    ).padStart(2, "0"); 
+
+    timerEl.textContent = `${min}:${sec}`; 
+  } 
+
+  function resetTimer() { 
+    initTimer(); 
+    updateTimer(); 
+  } 
+
+  updateTimer(); 
+
+  // Таймер продолжает идти автоматически
+  setInterval(updateTimer, 1000); 
+
+
+  // --- ДАТА: ОБНОВЛЯЕТСЯ ТОЛЬКО ПРИ REFRESH --- 
+
+  const dateEl = document.getElementById("date"); 
+ 
+  function getCurrentDateTime() { 
+
+    const now = new Date(); 
+ 
+    const d = String(now.getDate()).padStart(2, "0"); 
+    const m = String(now.getMonth() + 1).padStart(2, "0"); 
+    const y = now.getFullYear(); 
+ 
+    const h = String(now.getHours()).padStart(2, "0"); 
+    const min = String(now.getMinutes()).padStart(2, "0"); 
+ 
+    return `${d}.${m}.${y} ${h}:${min}`; 
+  } 
+ 
+  const navType = performance
+    .getEntriesByType("navigation")[0]?.type; 
+ 
+  if (navType === "reload") { 
+
+    const realDate = getCurrentDateTime(); 
+
+    dateEl.textContent = realDate; 
+
+    localStorage.setItem("date", realDate); 
+  } 
+
+
+  // --- СОХРАНЕНИЕ РЕДАКТИРУЕМЫХ ПОЛЕЙ --- 
+
+  const editableElements = document.querySelectorAll(
+    '[contenteditable="true"]'
+  ); 
+
+  editableElements.forEach(el => { 
+
+    const id = el.id; 
+
+    const saved = localStorage.getItem(id); 
+
+    if (saved) {
+      el.textContent = saved; 
+    }
+
+    el.addEventListener('input', () => { 
+      localStorage.setItem(id, el.textContent); 
+    }); 
+
+  }); 
+
+</script> 
+
+</body> 
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
